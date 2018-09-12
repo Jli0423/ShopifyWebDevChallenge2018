@@ -1,38 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Colors from '../Data/Colors';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 
-class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      queryResults: [],
-    };
-  }
+const Search = (props) => {
+  const {
+    updateRepoList,
+    repoList,
+    getInitialList,
+  } = props;
+  return (
+    <Wrapper>
+      <SearchBar
+        getQueryResults={(results) => { getInitialList(results); }}
+      />
+      <SearchResults
+        updateRepoList={updateRepoList}
+        repoList={repoList}
+      />
+    </Wrapper>
+  );
+};
 
-  getResults(queryResults) {
-    this.setState({
-      queryResults,
-    });
-  }
-
-  render() {
-    const { queryResults } = this.state;
-    return (
-      <Wrapper>
-        <SearchBar
-          getQueryResults={(results) => { this.getResults(results); }}
-        />
-        <SearchResults
-          queryResults={queryResults || []}
-        />
-      </Wrapper>
-    );
-  }
-}
+Search.propTypes = {
+  updateRepoList: PropTypes.func.isRequired,
+  getInitialList: PropTypes.func.isRequired,
+  repoList: PropTypes.isArray(PropTypes.object).isRequired,
+};
 
 const Wrapper = styled.div`
   display: flex;

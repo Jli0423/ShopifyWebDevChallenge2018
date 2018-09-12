@@ -58,7 +58,7 @@ class SearchBar extends Component {
       >
         <InputArea
           innerRef={(input) => { this.queryRef = input; }}
-          placeholder="Shopify"
+          placeholder="Search a git repo!"
         />
         <Submit
           onClick={(click) => { this.preventClickDefault(click); }}

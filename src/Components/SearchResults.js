@@ -8,41 +8,18 @@ const headers = ['Name', 'Language', 'Latest tag', '\u00a0'];
 
 class SearchResults extends Component {
   static propTypes = {
-    queryResults: PropTypes.arrayOf(PropTypes.object).isRequired,
+    updateRepoList: PropTypes.func.isRequired,
+    repoList: PropTypes.isArray(PropTypes.object).isRequired,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      results: [],
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-    const { queryResults } = this.props;
-    const filteredResults = [];
-
-    if (prevProps.queryResults !== queryResults) {
-      queryResults.map((repo, i) => {
-        filteredResults[i] = {
-          name: repo.name,
-          language: repo.language,
-          tag: '-',
-        };
-      });
-
-      this.setState({
-        results: filteredResults,
-      });
-    }
-  }
-
-  addToFavorites() {
-    console.log('asdf');
+  addToFavorites(e, repoToFavorite) {
+    const { updateRepoList } = this.props;
+    e.preventDefault();
+    updateRepoList(repoToFavorite, true);
   }
 
   render() {
-    const { results } = this.state;
+    const { repoList } = this.props;
     return (
       <Wrapper>
         <TableHeaders>
@@ -54,29 +31,33 @@ class SearchResults extends Component {
             ))
           }
         </TableHeaders>
-        {
-          results.map(repo => (
-            <TableHeaders>
-              <td>
-                { repo.name }
-              </td>
-              <td>
-                { repo.language }
-              </td>
-              <td>
-                { repo.tag }
-              </td>
-              <td>
-                <AddButton
-                  onClick={() => { this.addToFavorites(); }}
-                  href=""
-                >
-                  Add
-                </AddButton>
-              </td>
-            </TableHeaders>
-          ))
+        <tbody>
+          {
+            repoList.map(repo => (
+              <TableHeaders>
+                <td>
+                  { repo.name }
+                </td>
+                <td>
+                  { repo.language }
+                </td>
+                <td>
+                  { repo.tag }
+                </td>
+                <td>
+                  <AddButton
+                    onClick={(click) => { this.addToFavorites(click, repo); }}
+                    href=""
+                  >
+                    {
+                      repo.favorite ? '' : 'Add'
+                    }
+                  </AddButton>
+                </td>
+              </TableHeaders>
+            ))
           }
+        </tbody>
       </Wrapper>
     );
   }
