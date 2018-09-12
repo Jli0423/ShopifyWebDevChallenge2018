@@ -28,7 +28,7 @@ const Search = (props) => {
 Search.propTypes = {
   updateRepoList: PropTypes.func.isRequired,
   getInitialList: PropTypes.func.isRequired,
-  repoList: PropTypes.isArray(PropTypes.object).isRequired,
+  repoList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const Wrapper = styled.div`

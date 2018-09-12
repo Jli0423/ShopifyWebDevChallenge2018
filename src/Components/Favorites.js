@@ -8,7 +8,7 @@ const headers = ['Name', 'Language', 'Latest tag', '\u00a0'];
 
 class Favorites extends Component {
   static propTypes = {
-    repoList: PropTypes.isArray(PropTypes.object).isRequired,
+    repoList: PropTypes.arrayOf(PropTypes.object).isRequired,
     updateRepoList: PropTypes.func.isRequired,
   }
 
@@ -22,7 +22,12 @@ class Favorites extends Component {
     return (
       <TableHeaders>
         <td>
-          { repo.name }
+          <GitLink
+            href={repo.url}
+            target="_blank"
+          >
+            { repo.name }
+          </GitLink>
         </td>
         <td>
           { repo.language }
@@ -71,6 +76,8 @@ class Favorites extends Component {
 
 const Table = styled.table`
   margin: 3em 0 0 3em;
+  table-layout: fixed;
+  width: 100%;
   text-align: left;
 `;
 
@@ -84,6 +91,11 @@ const Header = styled.th`
 
 const RemoveButton = styled.a`
   color: ${Colors.DarkPurpleDark};
+`;
+
+const GitLink = styled.a`
+  text-decoration: none;
+  color: ${Colors.Black};
 `;
 
 const Wrapper = styled.div`

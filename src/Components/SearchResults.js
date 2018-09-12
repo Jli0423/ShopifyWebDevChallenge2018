@@ -9,7 +9,7 @@ const headers = ['Name', 'Language', 'Latest tag', '\u00a0'];
 class SearchResults extends Component {
   static propTypes = {
     updateRepoList: PropTypes.func.isRequired,
-    repoList: PropTypes.isArray(PropTypes.object).isRequired,
+    repoList: PropTypes.arrayOf(PropTypes.object).isRequired,
   }
 
   addToFavorites(e, repoToFavorite) {
@@ -36,7 +36,12 @@ class SearchResults extends Component {
             repoList.map(repo => (
               <TableHeaders>
                 <td>
-                  { repo.name }
+                  <GitLink
+                    href={repo.url}
+                    target="_blank"
+                  >
+                    { repo.name }
+                  </GitLink>
                 </td>
                 <td>
                   { repo.language }
@@ -65,6 +70,8 @@ class SearchResults extends Component {
 
 const Wrapper = styled.table`
   margin: 1em 0 0 3em;
+  table-layout: fixed;
+  width: 100%;
   text-align: left;
 `;
 
@@ -78,6 +85,11 @@ const Header = styled.th`
 
 const AddButton = styled.a`
   color: ${Colors.DarkPurpleDark};
+`;
+
+const GitLink = styled.a`
+  text-decoration: none;
+  color: ${Colors.Black};
 `;
 
 export default SearchResults;
