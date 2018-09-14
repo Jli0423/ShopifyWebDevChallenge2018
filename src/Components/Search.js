@@ -12,6 +12,7 @@ const Search = (props) => {
     repoList,
     getInitialList,
   } = props;
+
   return (
     <Wrapper>
       <SearchBar

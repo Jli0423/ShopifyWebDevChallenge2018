@@ -33,14 +33,14 @@ class Favorites extends Component {
           { repo.language }
         </td>
         <td>
-          { repo.tag }
+          { repo.tagVersion }
         </td>
         <td>
           <RemoveButton
             onClick={(key) => { this.removeFromFavorites(key, repo); }}
             href=""
           >
-          Remove
+            Remove
           </RemoveButton>
         </td>
       </TableHeaders>
@@ -52,15 +52,17 @@ class Favorites extends Component {
     return (
       <Wrapper>
         <Table>
-          <TableHeaders>
-            {
-            headers.map(title => (
-              <Header>
-                { title }
-              </Header>
-            ))
-          }
-          </TableHeaders>
+          <tbody>
+            <TableHeaders>
+              {
+              headers.map(title => (
+                <Header>
+                  { title }
+                </Header>
+              ))
+            }
+            </TableHeaders>
+          </tbody>
           <tbody>
             {
             repoList.map(repo => (

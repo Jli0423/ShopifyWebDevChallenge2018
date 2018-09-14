@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Favorites from './Favorites';
 import Search from './Search';
@@ -22,19 +23,27 @@ class Container extends Component {
         id: repo.id,
         name: repo.name,
         language: repo.language,
-        tag: repo.tag || '-',
         url: repo.html_url,
         favorite: false,
+        tagVersion: '-',
       };
-    });
-    favListIds = favList.map(repo => repo.id);
-    filteredResults.forEach((repo, index) => {
-      if (favListIds.indexOf(repo.id) > -1) {
-        filteredResults[index].favorite = true;
-      }
-    });
-    this.setState({
-      repoList: filteredResults,
+      axios.get(repo.tags_url)
+        .then((res) => {
+          const tag = (res.data && res.data[0] && res.data[0].name) || '-';
+          filteredResults[i].tagVersion = tag;
+          favListIds = favList.map(favRepo => favRepo.id);
+          filteredResults.forEach((filteredRepo, index) => {
+            if (favListIds.indexOf(filteredRepo.id) > -1) {
+              filteredResults[index].favorite = true;
+            }
+          });
+          this.setState({
+            repoList: filteredResults,
+          });
+        })
+        .catch((err) => {
+          console.log(`Tags version err ${err}`);
+        });
     });
   }
 

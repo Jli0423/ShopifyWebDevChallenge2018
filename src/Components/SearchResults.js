@@ -22,15 +22,17 @@ class SearchResults extends Component {
     const { repoList } = this.props;
     return (
       <Wrapper>
-        <TableHeaders>
-          {
-            headers.map(title => (
-              <Header>
-                { title }
-              </Header>
-            ))
-          }
-        </TableHeaders>
+        <tbody>
+          <TableHeaders>
+            {
+              headers.map(title => (
+                <Header>
+                  { title }
+                </Header>
+              ))
+            }
+          </TableHeaders>
+        </tbody>
         <tbody>
           {
             repoList.map(repo => (
@@ -47,7 +49,7 @@ class SearchResults extends Component {
                   { repo.language }
                 </td>
                 <td>
-                  { repo.tag }
+                  { repo.tagVersion }
                 </td>
                 <td>
                   <AddButton
