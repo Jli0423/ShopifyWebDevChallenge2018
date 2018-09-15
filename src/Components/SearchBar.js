@@ -53,9 +53,7 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <Wrapper
-        onKeyDown={(key) => { this.validateEnterKey(key); }}
-      >
+      <Wrapper>
         <InputArea
           innerRef={(input) => { this.queryRef = input; }}
           placeholder="Search a git repo!"
