@@ -23,10 +23,11 @@ class Container extends Component {
         repoList: [],
       });
     }
+    console.log(repoList);
     return repoList.map((repo, i) => {
       filteredResults[i] = {
         id: repo.id,
-        name: repo.name,
+        name: `${repo.owner.login}/${repo.name}`,
         language: repo.language,
         url: repo.html_url,
         favorite: false,
