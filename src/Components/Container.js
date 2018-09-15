@@ -18,7 +18,12 @@ class Container extends Component {
     const { favList } = this.state;
     const filteredResults = [];
     let favListIds = [];
-    repoList.map((repo, i) => {
+    if (repoList.length === 0) {
+      return this.setState({
+        repoList: [],
+      });
+    }
+    return repoList.map((repo, i) => {
       filteredResults[i] = {
         id: repo.id,
         name: repo.name,
